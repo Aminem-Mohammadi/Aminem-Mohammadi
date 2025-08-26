@@ -1,18 +1,17 @@
 import { Fragment } from 'react';
-import { SanitizedPublication } from '../../interfaces/sanitized-config';
+import { SanitizedBiography } from '../../interfaces/sanitized-config';
 import { skeleton } from '../../utils';
-import { Library, Book, Users, LibraryBig } from 'lucide-react'; // Add this at the top
 
-const PublicationCard = ({
-  publications,
+const Biography = ({
+  biography,
   loading,
 }: {
-  publications: SanitizedPublication[];
+  biography: SanitizedBiography;
   loading: boolean;
 }) => {
   const renderSkeleton = () => {
     const array = [];
-    for (let index = 0; index < publications.length; index++) {
+    for (let index = 0; index < biography.length; index++) {
       array.push(
         <div className="card shadow-lg compact bg-base-100" key={index}>
           <div className="p-8 h-full w-full">
@@ -75,7 +74,7 @@ const PublicationCard = ({
   };
 
   const renderPublications = () => {
-    return publications.map((item, index) => (
+    return biography.map((item, index) => (
       <a
         className="card shadow-lg compact bg-base-100 cursor-pointer"
         key={index}
@@ -83,48 +82,33 @@ const PublicationCard = ({
         target="_blank"
         rel="noreferrer"
       >
-        <div className="p-4 h-full w-full">
+        <div className="p-8 h-full w-full">
           <div className="flex items-center flex-col">
             <div className="w-full">
-              <div className="px-2">
-              <div className="p-0 h-full w-full">
-              <h2 className="font-medium text-base-content opacity-70 text-sm flex items-start gap-2">
-              <span className="min-w-[20px] mt-1">
-                <Book size={16} className="text-primary" />
-              </span>
-              <span className="flex-1">{item.title}</span>
-               </h2>
-                 <div className=" w-full">
+              <div className="px-4">
+                <div className="text-center w-full">
+                
                   {item.conferenceName && (
-                    <p className="mt-4 text-base-content opacity-50 text-sm flex items-start">
-                    <span className="min-w-[20px] mt-1">
-                    <Library size={14} className="text-primary" />
-                    </span>
-                     <span className="flex-1">{item.conferenceName}</span>
+                    <p className="text-base-content opacity-50 text-sm">
+                      {item.conferenceName}
                     </p>
                   )}
                   {item.journalName && (
-                    <p className="mt-4 text-base-content opacity-50 text-sm flex items-start">
-                    <span className="min-w-[20px] mt-1">
-                    <Library size={14} className="text-primary" />
-                    </span>
-                     <span className="flex-1">{item.journalName}</span>
+                    <p className="text-base-content opacity-50 text-sm">
+                      {item.journalName}
                     </p>
                   )}
                   {item.authors && (
-                    <p className="mt-4 text-base-content opacity-50 text-sm flex items-start">
-                    <span className="min-w-[20px] mt-1">
-                    <Users size={14} className="text-primary" />
-                    </span>
-                     <span className="flex-1" dangerouslySetInnerHTML={{ __html: `Author: ${item.authors}` }}/>
+                    <p className="text-base-content opacity-50 text-sm">
+                      Author: {item.authors}
                     </p>
                   )}
                   {item.description && (
-                    <p className="mt-4 text-base-content text-opacity-60 text-sm text-justify">
-                      {item.description}
-                    </p>
+                    <p
+                      className="mt-2 text-base-content text-opacity-60 text-sm text-justify"
+                      dangerouslySetInnerHTML={{ __html: item.description }}
+                    />
                   )}
-                    </div>
                 </div>
               </div>
             </div>
@@ -147,13 +131,13 @@ const PublicationCard = ({
                       skeleton({ widthCls: 'w-40', heightCls: 'h-8' })
                     ) : (
                       <span className="text-base-content opacity-70">
-                        Publications
+                        Biography
                       </span>
                     )}
                   </h5>
                 </div>
                 <div className="col-span-2">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md gap-6">
                     {loading ? renderSkeleton() : renderPublications()}
                   </div>
                 </div>
@@ -166,4 +150,4 @@ const PublicationCard = ({
   );
 };
 
-export default PublicationCard;
+export default Biography;

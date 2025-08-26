@@ -81,6 +81,7 @@ export const getSanitizedConfig = (
         skype: config?.social?.skype,
         telegram: config?.social?.telegram,
         researchGate: config?.social?.researchGate,
+        googlescholar: config?.social?.googlescholar,
       },
       resume: {
         fileUrl: config?.resume?.fileUrl || '',
@@ -107,6 +108,7 @@ export const getSanitizedConfig = (
       googleAnalytics: {
         id: config?.googleAnalytics?.id,
       },
+      biography: config?.biography?.filter((item) => item.description) || [],
       hotjar: {
         id: config?.hotjar?.id,
         snippetVersion: config?.hotjar?.snippetVersion || 6,

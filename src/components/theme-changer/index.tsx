@@ -1,19 +1,7 @@
-import { AiOutlineControl } from 'react-icons/ai';
+import { MouseEvent } from 'react';
 import { SanitizedThemeConfig } from '../../interfaces/sanitized-config';
 import { LOCAL_STORAGE_KEY_NAME } from '../../constants';
 import { skeleton } from '../../utils';
-import { MouseEvent } from 'react';
-
-/**
- * Renders a theme changer component.
- *
- * @param {Object} props - The props object.
- * @param {string} props.theme - The current theme.
- * @param {function} props.setTheme - A function to set the theme.
- * @param {boolean} props.loading - Whether the component is in a loading state.
- * @param {SanitizedThemeConfig} props.themeConfig - The theme configuration object.
- * @return {JSX.Element} The rendered theme changer component.
- */
 const ThemeChanger = ({
   theme,
   setTheme,
@@ -25,31 +13,21 @@ const ThemeChanger = ({
   loading: boolean;
   themeConfig: SanitizedThemeConfig;
 }) => {
-  const changeTheme = (
-    e: MouseEvent<HTMLAnchorElement>,
-    selectedTheme: string,
-  ) => {
-    e.preventDefault();
-
+  const changeTheme = (e: MouseEvent<HTMLInputElement>) => {
+    const selectedTheme = e.currentTarget.checked ? 'lemonade' : 'sunset';
     document.querySelector('html')?.setAttribute('data-theme', selectedTheme);
-
     typeof window !== 'undefined' &&
       localStorage.setItem(LOCAL_STORAGE_KEY_NAME, selectedTheme);
-
     setTheme(selectedTheme);
   };
 
   return (
     <div className="card overflow-visible shadow-lg compact bg-base-100">
-      <div className="flex-row items-center space-x-4 flex pl-6 pr-2 py-4">
+      <div className="flex-row items-center justify-between flex px-6 py-4">
         <div className="flex-1">
           <h5 className="card-title">
             {loading ? (
-              skeleton({
-                widthCls: 'w-20',
-                heightCls: 'h-8',
-                className: 'mb-1',
-              })
+              skeleton({ widthCls: 'w-20', heightCls: 'h-8', className: 'mb-1' })
             ) : (
               <span className="text-base-content opacity-70">Theme</span>
             )}
@@ -57,60 +35,26 @@ const ThemeChanger = ({
           <span className="text-base-content text-opacity-40 capitalize text-sm">
             {loading
               ? skeleton({ widthCls: 'w-16', heightCls: 'h-5' })
-              : theme === themeConfig.defaultTheme
-                ? 'Default'
-                : theme}
+              : theme === 'lemonade' ? 'Light Mode' : 'Dark Mode'}
           </span>
         </div>
         <div className="flex-0">
           {loading ? (
-            skeleton({
-              widthCls: 'w-14 md:w-28',
-              heightCls: 'h-10',
-              className: 'mr-6',
-            })
+            skeleton({ widthCls: 'w-14 md:w-28', heightCls: 'h-10', className: 'mr-6' })
           ) : (
-            <div title="Change Theme" className="dropdown dropdown-end">
-              <div
-                tabIndex={0}
-                className="btn btn-ghost m-1 normal-case opacity-50 text-base-content"
-              >
-                <AiOutlineControl className="inline-block w-5 h-5 stroke-current md:mr-2" />
-                <span className="hidden md:inline">Change Theme</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 1792 1792"
-                  className="inline-block w-4 h-4 ml-1 fill-current"
-                >
-                  <path d="M1395 736q0 13-10 23l-466 466q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l393 393 393-393q10-10 23-10t23 10l50 50q10 10 10 23z" />
-                </svg>
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                className="sr-only peer"
+                onChange={changeTheme}
+                checked={theme === 'lemonade'}
+              />
+              <div className="w-14 h-8 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-lemonade dark:bg-gray-700 rounded-full peer peer-checked:after:translate-x-6 after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-yellow-400">
               </div>
-              <div
-                tabIndex={0}
-                className="mt-16 overflow-y-auto shadow-2xl top-px dropdown-content max-h-96 w-52 rounded-lg bg-base-200 text-base-content z-10"
-              >
-                <ul className="p-4 menu compact">
-                  {[
-                    themeConfig.defaultTheme,
-                    ...themeConfig.themes.filter(
-                      (item) => item !== themeConfig.defaultTheme,
-                    ),
-                  ].map((item, index) => (
-                    <li key={index}>
-                      {}
-                      <a
-                        onClick={(e) => changeTheme(e, item)}
-                        className={`${theme === item ? 'active' : ''}`}
-                      >
-                        <span className="opacity-60 capitalize">
-                          {item === themeConfig.defaultTheme ? 'Default' : item}
-                        </span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+              <span className="ml-3 text-sm text-base-content">
+                {theme === 'lemonade' ? '🌞' : '🌙'}
+              </span>
+            </label>
           )}
         </div>
       </div>

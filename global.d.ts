@@ -122,6 +122,12 @@ interface Social {
    */
   mastodon?: string;
 
+  
+    /**
+   * Google Scholar username
+   */
+  googlescholar?: string;
+
   /**
    * ResearchGate username
    */
@@ -246,6 +252,16 @@ interface Publication {
   description?: string;
 }
 
+
+interface Biographies {
+  title?: string;
+  conferenceName?: string;
+  journalName?: string;
+  authors?: string;
+  link?: string;
+  description?: string;
+}
+
 interface GoogleAnalytics {
   /**
    * GA3 tracking id/GA4 tag id UA-XXXXXXXXX-X | G-XXXXXXXXXX
@@ -354,6 +370,8 @@ interface ThemeConfig {
 }
 
 interface Config {
+
+ 
   /**
    * GitHub config
    */
@@ -404,6 +422,8 @@ interface Config {
    */
   publications?: Array<Publication>;
 
+  biography?: Array<Biographies>;
+
   /**
    * Resume
    */
@@ -428,6 +448,7 @@ interface Config {
    * Theme config
    */
   themeConfig?: ThemeConfig;
+
 
   /**
    * Custom footer

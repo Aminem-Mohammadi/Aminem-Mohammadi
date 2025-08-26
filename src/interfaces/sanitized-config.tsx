@@ -19,6 +19,15 @@ export interface SanitizedGitHubProjects {
   };
 }
 
+export interface SanitizedBiography{
+  title?: string;
+  conferenceName?: string;
+  journalName?: string;
+  authors?: string;
+  link?: string;
+  description?: string;
+}
+
 export interface SanitizedExternalProject {
   title: string;
   description?: string;
@@ -46,6 +55,7 @@ export interface SanitizedSocial {
   linkedin?: string;
   x?: string;
   mastodon?: string;
+  googlescholar?: string;
   researchGate?: string;
   facebook?: string;
   instagram?: string;
@@ -136,6 +146,8 @@ export interface SanitizedThemeConfig {
 }
 
 export interface SanitizedConfig {
+  biography: Array<SanitizedBiography>;
+
   github: SanitizedGithub;
   projects: SanitizedProjects;
   seo: SanitizedSEO;

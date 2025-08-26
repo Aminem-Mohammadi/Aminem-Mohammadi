@@ -30,6 +30,9 @@ import ExternalProjectCard from './external-project-card';
 import BlogCard from './blog-card';
 import Footer from './footer';
 import PublicationCard from './publication-card';
+import Biography from './biography-card'; 
+
+
 
 /**
  * Renders the GitProfile component.
@@ -179,7 +182,7 @@ const GitProfile = ({ config }: { config: Config }) => {
     }
   };
 
-  return (
+    return (
     <HelmetProvider>
       <div className="fade-in h-screen">
         {error ? (
@@ -246,7 +249,13 @@ const GitProfile = ({ config }: { config: Config }) => {
                 </div>
                 <div className="lg:col-span-2 col-span-1">
                   <div className="grid grid-cols-1 gap-6">
-                    {sanitizedConfig.projects.github.display && (
+                    {sanitizedConfig.biography.length !== 0 && (
+                      <Biography
+                        loading={loading}
+                        biography={sanitizedConfig.biography}
+                      />
+                    )}
+                    {/* {sanitizedConfig.projects.github.display && (
                       <GithubProjectCard
                         header={sanitizedConfig.projects.github.header}
                         limit={sanitizedConfig.projects.github.automatic.limit}
@@ -255,13 +264,14 @@ const GitProfile = ({ config }: { config: Config }) => {
                         username={sanitizedConfig.github.username}
                         googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
                       />
-                    )}
+                    )} */}
                     {sanitizedConfig.publications.length !== 0 && (
                       <PublicationCard
                         loading={loading}
                         publications={sanitizedConfig.publications}
                       />
                     )}
+
                     {sanitizedConfig.projects.external.projects.length !==
                       0 && (
                       <ExternalProjectCard

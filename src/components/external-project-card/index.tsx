@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import LazyImage from '../lazy-image';
 import { ga, skeleton } from '../../utils';
 import { SanitizedExternalProject } from '../../interfaces/sanitized-config';
+import { Folder, Tags, Users, LibraryBig } from 'lucide-react'; // Add this at the top
 
 const ExternalProjectCard = ({
   externalProjects,
@@ -69,7 +70,7 @@ const ExternalProjectCard = ({
   const renderExternalProjects = () => {
     return externalProjects.map((item, index) => (
       <a
-        className="card shadow-lg compact bg-base-100 cursor-pointer"
+        className="card shadow-lg compact bg-base-100 cursor-default"
         key={index}
         href={item.link}
         onClick={(e) => {
@@ -88,17 +89,14 @@ const ExternalProjectCard = ({
           window?.open(item.link, '_blank');
         }}
       >
-        <div className="p-8 h-full w-full">
+        <div className="p-6 h-full w-full">
           <div className="flex items-center flex-col">
             <div className="w-full">
-              <div className="px-4">
+              <div className="px-0">
                 <div className="text-center w-full">
-                  <h2 className="font-medium text-center opacity-60 mb-2">
-                    {item.title}
-                  </h2>
                   {item.imageUrl && (
                     <div className="avatar opacity-90">
-                      <div className="w-24 h-24 mask mask-squircle">
+                      <div className="w-64 h-40 rounded-xl overflow-hidden border border-primary border-4">
                         <LazyImage
                           src={item.imageUrl}
                           alt={'thumbnail'}
@@ -111,10 +109,27 @@ const ExternalProjectCard = ({
                       </div>
                     </div>
                   )}
-                  <p className="mt-2 text-base-content text-opacity-60 text-sm text-justify">
-                    {item.description}
+                  </div>
+                  <div className="text-left w-full">
+
+                  <h2 className="font-medium text-base-content opacity-70 text-sm flex items-start gap-1">
+                  <span className="min-w-[20px] mt-1">
+                  <Folder size={16} className="text-primary" />
+                  </span>
+                  <span className="flex-1">{item.title}</span>
+                  </h2>
+
+                  </div>
+
+
+                  <p className="mt-4 text-base-content opacity-50 text-sm flex items-start">
+                  <span className="min-w-[20px] mt-1">
+                  <Tags size={14} className="text-primary" />
+                  </span>
+                  <span className="flex-1" dangerouslySetInnerHTML={{ __html: `<strong>Highlights: </strong> ${item.description}` }}/>
                   </p>
-                </div>
+
+                
               </div>
             </div>
           </div>

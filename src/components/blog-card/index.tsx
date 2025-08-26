@@ -131,7 +131,7 @@ const BlogCard = ({
               </div>
               <div className="w-full">
                 <div className="flex items-start px-4">
-                  <div className="text-center md:text-left w-full">
+                  <div className="text-left w-full">
                     <h2 className="font-medium text-base-content opacity-60">
                       {article.title}
                     </h2>

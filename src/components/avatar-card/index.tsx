@@ -25,11 +25,11 @@ const AvatarCard: React.FC<AvatarCardProps> = ({
   resumeFileUrl,
 }): JSX.Element => {
   return (
-    <div className="card shadow-lg compact bg-base-100">
-      <div className="grid place-items-center py-8">
+    <div className="card shadow-lg compact bg-base-100 p-4">
+      <div className="grid place-items-center py-4">
         {loading || !profile ? (
-          <div className="avatar opacity-90">
-            <div className="mb-8 rounded-full w-32 h-32">
+          <div className="opacity-90">
+            <div className="mb-8 w-72 h-80 rounded-box ring ring-primary ring-offset-base-100 ring-offset-2 overflow-hidden">
               {skeleton({
                 widthCls: 'w-full',
                 heightCls: 'h-full',
@@ -38,24 +38,25 @@ const AvatarCard: React.FC<AvatarCardProps> = ({
             </div>
           </div>
         ) : (
-          <div className="avatar opacity-90">
+          <div className="avatar opacity-95">
             <div
-              className={`mb-8 rounded-full w-32 h-32 ${
+              className={`mb-0 w-64 h-80 rounded-box overflow-hidden ${
                 avatarRing
-                  ? 'ring ring-primary ring-offset-base-100 ring-offset-2'
+                  ? 'ring ring-primary ring-offset-base-0 ring-offset-4'
                   : ''
               }`}
             >
               {
-                <LazyImage
-                  src={profile.avatar ? profile.avatar : FALLBACK_IMAGE}
-                  alt={profile.name}
-                  placeholder={skeleton({
-                    widthCls: 'w-full',
-                    heightCls: 'h-full',
-                    shape: '',
-                  })}
-                />
+              <LazyImage
+                src={'/prof.jpg'}
+                alt={profile.name || 'Amin M. Mohammadi'}
+                placeholder={skeleton({
+                  widthCls: 'w-full',
+                  heightCls: 'h-full',
+                  shape: '',
+                })}
+                className="w-full h-full object-cover"
+              />
               }
             </div>
           </div>

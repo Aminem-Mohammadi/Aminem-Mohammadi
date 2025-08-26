@@ -24,6 +24,9 @@ import { MdLocationOn } from 'react-icons/md';
 import { RiMailFill, RiPhoneFill } from 'react-icons/ri';
 import { SiResearchgate, SiX, SiUdemy } from 'react-icons/si';
 import { Profile } from '../../interfaces/profile';
+import { SiGooglescholar } from 'react-icons/si'; // ← This will NOT work unless the icon is added in the future.
+import { FaGraduationCap } from 'react-icons/fa';
+
 import {
   SanitizedGithub,
   SanitizedSocial,
@@ -196,12 +199,20 @@ const DetailsCard = ({ profile, loading, social, github }: Props) => {
                   }
                 />
               )}
-              <ListItem
+              {/* <ListItem
                 icon={<AiFillGithub />}
                 title="GitHub:"
                 value={github.username}
                 link={`https://github.com/${github.username}`}
-              />
+              /> */}
+              {social?.googlescholar && (
+                <ListItem
+                  icon={<FaGraduationCap/>}
+                  title="Google Scholar:"
+                  value={social.googlescholar}
+                  link={`https://scholar.google.com/citations?user=avcqX6sAAAAJ&hl=en`}
+                />
+              )}
               {social?.researchGate && (
                 <ListItem
                   icon={<SiResearchgate />}
